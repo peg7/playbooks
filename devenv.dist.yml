@@ -20,9 +20,14 @@
         - curl
         - fzf
     ## dotfiles
-    - name: Setup dotfiles
-      shell: curl -s {{ installer }} | /bin/bash
-      vars:
-        installer: https://raw.githubusercontent.com/peg7/dotfiles/main/.bin/install.sh
+    - name: Fetch dotfiles installer
+      ansible.builtin.uri:
+        url: https://raw.githubusercontent.com/peg7/dotfiles/main/.bin/install.sh
+        return_content: yes
+      register: dotfiles_installer
+    - name: Run dotfiles installer
+      ansible.builtin.shell:
+        cmd: /bin/bash
+        stdin: "{{ dotfiles_installer.content }}"
     ## starship
 
