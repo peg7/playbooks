@@ -15,10 +15,10 @@
         name:
           - "{{ item }}"
         state: latest
-        loop:
-          - git
-          - curl
-          - fzf
+      loop:
+        - git
+        - curl
+        - fzf
     ## dotfiles
     - name: Setup dotfiles
       shell: curl -s {{ installer }} | /bin/bash
