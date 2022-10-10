@@ -21,11 +21,13 @@
         - fzf
     ## dotfiles
     - name: Fetch dotfiles installer
+      become_user: ubuntu
       ansible.builtin.uri:
         url: https://raw.githubusercontent.com/peg7/dotfiles/main/.bin/install.sh
         return_content: yes
       register: dotfiles_installer
     - name: Run dotfiles installer
+      become_user: ubuntu
       ansible.builtin.shell:
         cmd: /bin/bash
         stdin: "{{ dotfiles_installer.content }}"
